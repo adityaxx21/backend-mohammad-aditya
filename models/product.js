@@ -1,11 +1,27 @@
 const { knex } = require("../config");
 
 async function getProducts(data = null) {
-  const { limit = 10, page = 1, name = null } = data;
+  const {
+    limit = 10,
+    page = 1,
+    name = null,
+    merchant_id = null,
+    brand_id = null,
+  } = data;
   const products = knex("products")
     .where(function () {
       if (name !== null) {
         this.whereLike("name", `%${name}%`);
+      }
+    })
+    .where(function () {
+      if (merchant_id !== null) {
+        this.where("merchant_id", merchant_id);
+      }
+    })
+    .where(function () {
+      if (brand_id !== null) {
+        this.where("brand_id", brand_id);
       }
     })
     .paginate({

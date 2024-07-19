@@ -1,0 +1,651 @@
+{
+	"info": {
+		"_postman_id": "33365cf1-a920-42bd-bc7e-c682a3d8041d",
+		"name": "Backend Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20236546"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlheWF0bWExQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTM4NDU0NCwiZXhwIjoxNzIxOTg5MzQ0fQ.pzubvN2HOgDIXtQGVTHy8jtk1NpQb74LzqEjJEft0FM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "VIT",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2000",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "brand_id",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "merchant_id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### GET /products\n\nThis endpoint retrieves a list of products based on the provided brand ID.\n\n#### Request\n\n- Method: GET\n- URL: {{base_url}}/products\n- Query Parameters:\n    - name (string): The name of product\n    - brand_id ( integer): The ID of the brand for which the products are to be retrieved.\n    - merchant_id (integer): The ID of the merchant for which the products are to be retrieved.\n    - limit (required, integer)\n    - page (integer)\n\n#### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"integer\" },\n          \"name\": { \"type\": \"string\" },\n          \"price\": { \"type\": \"string\" },\n          \"stock\": { \"type\": \"integer\" },\n          \"description\": { \"type\": \"string\" },\n          \"brand_id\": { \"type\": \"integer\" },\n          \"merchant_id\": { \"type\": \"integer\" },\n          \"created_at\": { \"type\": \"string\" },\n          \"updated_at\": { \"type\": \"string\" }\n        }\n      }\n    },\n    \"pagination\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"total\": { \"type\": \"integer\" },\n        \"lastPage\": { \"type\": \"integer\" },\n        \"prevPage\": { \"type\": [\"integer\", \"null\"] },\n        \"nextPage\": { \"type\": [\"integer\", \"null\"] },\n        \"perPage\": { \"type\": \"integer\" },\n        \"currentPage\": { \"type\": \"integer\" },\n        \"from\": { \"type\": \"integer\" },\n        \"to\": { \"type\": \"integer\" }\n      }\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlheWF0bWExQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTM4NDU0NCwiZXhwIjoxNzIxOTg5MzQ0fQ.pzubvN2HOgDIXtQGVTHy8jtk1NpQb74LzqEjJEft0FM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTcyMTM5NzMzOSwiZXhwIjoxNzIyMDAyMTM5fQ.xC6g9wKV65G6egufhP4qk2Rv8MLVT78sKbnsEUuqVZw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"test\",\n    \"price\": 1000000,\n    \"stock\": 12,\n    \"brand_id\": 1,\n    \"merchant_id\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "### POST /products\n\nThis endpoint is used to create a new product.\n\n#### Request Body\n\n- `name` (string, required): The name of the product.\n- `description` (string, required): The description of the product.\n- `price` (number, required): The price of the product.\n- `stock` (number, required): The available stock of the product.\n- `brand_id` (number): The ID of the brand associated with the product.\n    \n- `merchant_id` (number, required): The ID of the merchant associated with the product.\n    \n\n#### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"success\": {\n            \"type\": \"boolean\"\n        },\n        \"statusCode\": {\n            \"type\": \"number\"\n        },\n        \"data\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"number\"\n                    },\n                    \"name\": {\n                        \"type\": \"string\"\n                    },\n                    \"price\": {\n                        \"type\": \"string\"\n                    },\n                    \"stock\": {\n                        \"type\": \"number\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"brand_id\": {\n                        \"type\": \"number\"\n                    },\n                    \"merchant_id\": {\n                        \"type\": \"number\"\n                    },\n                    \"created_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"updated_at\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE3MjE0MTU5MjksImV4cCI6MTcyMjAyMDcyOX0.hX-dPq3raSjDUtbjojf4Og7RaTt5HkqoTFAUoGK8hTk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"test\",\n    \"stock\": 1222,\n    \"price\": 2000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						},
+						"description": "\n### Update Product Details\n\nThis endpoint is used to update the details of a specific product.\n\n#### Request Body\n- `name` (string, required): The updated name of the product.\n- `description` (string, required): The updated description of the product.\n- `stock` (number, required): The updated stock quantity of the product.\n- `price` (number, required): The updated price of the product.\n\nExample:\n```json\n{\n  \"name\": \"Updated Product Name\",\n  \"description\": \"Updated product description.\",\n  \"stock\": 10,\n  \"price\": 50.00\n}\n```\n\n#### Response\n- `success` (boolean): Indicates if the update was successful.\n- `statusCode` (number): The status code of the response.\n- `data` (array): An array containing the updated product details.\n  - `id` (number): The ID of the updated product.\n  - `name` (string): The updated name of the product.\n  - `price` (string): The updated price of the product.\n  - `stock` (number): The updated stock quantity of the product.\n  - `description` (string): The updated description of the product.\n  - `brand_id` (number): The ID of the brand associated with the product.\n  - `merchant_id` (number): The ID of the merchant associated with the product.\n  - `created_at` (string): The timestamp of the product's creation.\n  - `updated_at` (string): The timestamp of the product's last update.\n\nExample Response:\n```json\n{\n  \"success\": true,\n  \"statusCode\": 0,\n  \"data\": [\n    {\n      \"id\": 123,\n      \"name\": \"Updated Product Name\",\n      \"price\": \"50.00\",\n      \"stock\": 10,\n      \"description\": \"Updated product description.\",\n      \"brand_id\": 456,\n      \"merchant_id\": 789,\n      \"created_at\": \"2022-01-01T12:00:00Z\",\n      \"updated_at\": \"2022-01-02T08:00:00Z\"\n    }\n  ]\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTcyMTM5NzMzOSwiZXhwIjoxNzIyMDAyMTM5fQ.xC6g9wKV65G6egufhP4qk2Rv8MLVT78sKbnsEUuqVZw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"5"
+							]
+						},
+						"description": "### Delete Product\n\nThis endpoint is used to delete a specific product.\n\n#### Request\n\n- Method: DELETE\n- URL: `{{base_url}}/products/5`\n    \n\n#### Response\n\nThe response for this request is a status code of 204 with no content. As per the user's request, the response is documented as a JSON schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {}\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "merchants",
+			"item": [
+				{
+					"name": "Get Merchants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlheWF0bWExQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTM4NDU0NCwiZXhwIjoxNzIxOTg5MzQ0fQ.pzubvN2HOgDIXtQGVTHy8jtk1NpQb74LzqEjJEft0FM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/merchants?name=o A",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"merchants"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "o A"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "100",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### GET /merchants\n\nThis endpoint retrieves merchants based on the provided name parameter.\n\n#### Request\n\n- Method: GET\n- Base URL: {{base_url}}\n- Path: /merchants\n- Query Parameters:\n    - name (string): The name of the merchant to search for.\n    - limit (integer): limit pagination\n    - name (integer): page of pagination\n\n#### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n  \"data\": [\n    {\n      \"id\": 0,\n      \"name\": \"\",\n      \"description\": \"\",\n      \"address\": \"\",\n      \"revenue\": 0,\n      \"user_id\": 0,\n      \"created_at\": \"\",\n      \"updated_at\": \"\"\n    }\n  ],\n  \"pagination\": {\n    \"total\": 0,\n    \"lastPage\": 0,\n    \"prevPage\": null,\n    \"nextPage\": null,\n    \"perPage\": 0,\n    \"currentPage\": 0,\n    \"from\": 0,\n    \"to\": 0\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Merchant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlheWF0bWExQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTM4NDU0NCwiZXhwIjoxNzIxOTg5MzQ0fQ.pzubvN2HOgDIXtQGVTHy8jtk1NpQb74LzqEjJEft0FM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/merchants/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"merchants",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Merchants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE3MjE0MTU5MjksImV4cCI6MTcyMjAyMDcyOX0.hX-dPq3raSjDUtbjojf4Og7RaTt5HkqoTFAUoGK8hTk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"test\",\n    \"address\": \"Kediri\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/merchants",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"merchants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Merchants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE3MjE0MTU5MjksImV4cCI6MTcyMjAyMDcyOX0.hX-dPq3raSjDUtbjojf4Og7RaTt5HkqoTFAUoGK8hTk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"tesster\",\n    \"description\": \"test\",\n    \"revenue\": 0,\n    \"address\": \"Kediri\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/merchants/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"merchants",
+								"4"
+							]
+						},
+						"description": "### Update Merchant Details\n\nThis endpoint allows the client to update the details of a specific merchant.\n\n#### Request Body\n\n- `name` (string): The name of the merchant.\n    \n- `description` (string): The description of the merchant.\n    \n- `revenue` (number): The revenue generated by the merchant.\n    \n- `address` (string): The address of the merchant.\n    \n\n#### Response\n\nUpon a successful update, the server responds with a status code of 200 and a JSON object containing:\n\n- `success` (boolean): Indicates the success of the operation.\n- `statusCode` (number): The status code of the response.\n- `data` (array): An array containing the updated details of the merchant, including the `id`, `name`, `description`, `address`, `revenue`, `user_id`, `created_at`, and `updated_at` fields."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactions",
+			"item": [
+				{
+					"name": "Get Transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTQxNTk2MywiZXhwIjoxNzIyMDIwNzYzfQ.T7lEZKtPzkSYPK3gUoGSwPF0iTh_KVhX0gKIcedT7mQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2000",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						},
+						"description": "The endpoint retrieves a list of transactions.\n\n#### Request\n\n- Method: GET\n- Base URL: {{base_url}}\n- Path: /transactions\n- Query Parameters:\n    \n    - limit (integer): limit pagination\n    - name (integer): page of pagination\n\nThe response of the request can be documented as a JSON schema as follows:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"data\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\"type\": \"integer\"},\n                    \"user_id\": {\"type\": \"integer\"},\n                    \"product_id\": {\"type\": \"integer\"},\n                    \"status\": {\"type\": \"string\"},\n                    \"total\": {\"type\": \"integer\"},\n                    \"shipping_cost\": {\"type\": \"integer\"},\n                    \"product_cost\": {\"type\": \"integer\"},\n                    \"gross_amount\": {\"type\": \"integer\"},\n                    \"net_amount\": {\"type\": \"integer\"},\n                    \"shipping_discount\": {\"type\": \"integer\"},\n                    \"product_discount\": {\"type\": \"integer\"},\n                    \"created_at\": {\"type\": \"string\"},\n                    \"updated_at\": {\"type\": \"string\"}\n                }\n            }\n        },\n        \"pagination\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"total\": {\"type\": \"integer\"},\n                \"lastPage\": {\"type\": \"integer\"},\n                \"prevPage\": {\"type\": [\"integer\", \"null\"]},\n                \"nextPage\": {\"type\": [\"integer\", \"null\"]},\n                \"perPage\": {\"type\": \"integer\"},\n                \"currentPage\": {\"type\": \"integer\"},\n                \"from\": {\"type\": \"integer\"},\n                \"to\": {\"type\": \"integer\"}\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTQxNTk2MywiZXhwIjoxNzIyMDIwNzYzfQ.T7lEZKtPzkSYPK3gUoGSwPF0iTh_KVhX0gKIcedT7mQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions",
+								"2"
+							]
+						},
+						"description": "The endpoint retrieves transaction details for a specific transaction ID.\n\n### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"success\": {\n            \"type\": \"boolean\"\n        },\n        \"statusCode\": {\n            \"type\": \"integer\"\n        },\n        \"data\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": {\n                    \"type\": \"integer\"\n                },\n                \"user_id\": {\n                    \"type\": \"integer\"\n                },\n                \"product_id\": {\n                    \"type\": \"integer\"\n                },\n                \"status\": {\n                    \"type\": \"string\"\n                },\n                \"total\": {\n                    \"type\": \"integer\"\n                },\n                \"shipping_cost\": {\n                    \"type\": \"integer\"\n                },\n                \"product_cost\": {\n                    \"type\": \"integer\"\n                },\n                \"gross_amount\": {\n                    \"type\": \"integer\"\n                },\n                \"net_amount\": {\n                    \"type\": \"integer\"\n                },\n                \"shipping_discount\": {\n                    \"type\": \"integer\"\n                },\n                \"product_discount\": {\n                    \"type\": \"integer\"\n                },\n                \"created_at\": {\n                    \"type\": \"string\"\n                },\n                \"updated_at\": {\n                    \"type\": \"string\"\n                }\n            },\n            \"required\": [\"id\", \"user_id\", \"product_id\", \"status\", \"total\", \"shipping_cost\", \"product_cost\", \"gross_amount\", \"net_amount\", \"shipping_discount\", \"product_discount\", \"created_at\", \"updated_at\"]\n        }\n    },\n    \"required\": [\"success\", \"statusCode\", \"data\"]\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTQxNTk2MywiZXhwIjoxNzIyMDIwNzYzfQ.T7lEZKtPzkSYPK3gUoGSwPF0iTh_KVhX0gKIcedT7mQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": \"1\",\n    \"status\": \"payment_successfull\",\n    \"total\": 1,\n    \"shipping_cost\": 20000,\n    \"product_cost\": 20000,\n    \"gross_amount\": 40000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brand",
+			"item": [
+				{
+					"name": "Create brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE3MjE0MTU5MjksImV4cCI6MTcyMjAyMDcyOX0.hX-dPq3raSjDUtbjojf4Og7RaTt5HkqoTFAUoGK8hTk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aice\",\n    \"description\": \"Merk ice2%\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/brands",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"brands"
+							]
+						},
+						"description": "This endpoint allows you to create a new brand by making an HTTP POST request to the specified URL.\n\n### Request Body\n\n- The request should include a JSON payload with the following parameters:\n    \n    - `name`: (string, required) The name of the brand.\n        \n    - `description`: (string, required) A description of the brand.\n        \n\n### Response\n\nThe response to the request will be in JSON format with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"success\": {\n      \"type\": \"boolean\"\n    },\n    \"statusCode\": {\n      \"type\": \"integer\"\n    },\n    \"data\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"integer\"\n          },\n          \"name\": {\n            \"type\": \"string\"\n          },\n          \"description\": {\n            \"type\": \"string\"\n          },\n          \"created_at\": {\n            \"type\": \"string\"\n          },\n          \"updated_at\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}\n\n ```\n\nThe response will have a `success` boolean, a `statusCode` integer, and a `data` array containing the details of the newly created brand including its `id`, `name`, `description`, `created_at`, and `updated_at` timestamps."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Brands",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4xQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE3MjE0MTU5MjksImV4cCI6MTcyMjAyMDcyOX0.hX-dPq3raSjDUtbjojf4Og7RaTt5HkqoTFAUoGK8hTk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/brands",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRpdHlhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIn0sImlhdCI6MTcyMTQxNTk2MywiZXhwIjoxNzIyMDIwNzYzfQ.T7lEZKtPzkSYPK3gUoGSwPF0iTh_KVhX0gKIcedT7mQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/brands/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"brands",
+								"1"
+							]
+						},
+						"description": "### GET /brands/1\n\nThis endpoint retrieves the details of a specific brand.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"success\": {\n      \"type\": \"boolean\"\n    },\n    \"statusCode\": {\n      \"type\": \"integer\"\n    },\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"integer\"\n        },\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"description\": {\n          \"type\": \"string\"\n        },\n        \"created_at\": {\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"updated_at\": {\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        }\n      }\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\":\"Admin\",\n    \"email\":\"asd@gmail.com\",\n    \"password\":\"123123123123\",\n    \"address\":\"Kediri\",\n    \"role\":\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "### /auth/register\n\nThis endpoint is used to register a new user.\n\n#### Request\n\n- Method: POST\n- Base URL: {{base_url}}\n- Body:\n    - fullname (text, required): The full name of the user.\n    - email (text, required): The email address of the user.\n    - password (text, required): The password for the user account.\n    - address (text, required): The address of the user.\n    - role (text, required): The role of the user.\n\n#### Response\n\nThe response for this request is a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"success\": {\n      \"type\": \"boolean\"\n    },\n    \"statusCode\": {\n      \"type\": \"integer\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```\n\n- Status: 500\n- Content-Type: application/json"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"asdd@gmail.com\",\n    \"password\":\"123123123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "### /auth/login\n\nThis endpoint is used to authenticate a user and obtain an access token for further API requests.\n\n#### Request\n\n- Method: POST\n- URL: {{base_url}}/auth/login\n- Body:\n    - email (text, required): The email of the user for authentication.\n    - password (text, required): The password of the user for authentication.\n\n#### Response\n\nThe response of this request is a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"success\": {\n      \"type\": \"boolean\"\n    },\n    \"statusCode\": {\n      \"type\": \"integer\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```\n\n- Status: 400\n- Content-Type: application/json"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3000/api",
+			"type": "string"
+		}
+	]
+}

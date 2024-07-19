@@ -1,9 +1,14 @@
 const { knex } = require("../config");
 
-
 async function createUser(data) {
   const { email, fullname, password, address, role } = await data;
-  const product = knex("users")
+  const check_user = await knex("users").where("email", email).first();
+
+  if (check_user) {
+    throw new Error("Email already used");
+  }
+  
+  const user = knex("users")
     .insert({
       fullname: fullname,
       email: email,
@@ -12,7 +17,7 @@ async function createUser(data) {
       role: role,
     })
     .returning("*");
-  return product;
+  return user;
 }
 
 async function getUser(email) {

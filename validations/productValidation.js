@@ -24,6 +24,11 @@ const createProductValidationRule = () => {
       .isAlphanumeric()
       .withMessage("Invalid description"),
     body("brand_id").optional({ nullable: true }).isInt().withMessage("Invalid brand_id"),
+    body("merchant_id")
+    .notEmpty()
+    .withMessage("merchant_id is required")
+    .isInt({ min: 0 })
+    .withMessage("Invalid merchant_id"),
   ];
 };
 

@@ -50,6 +50,10 @@ async function getAdminTransaction(id, userId) {
 async function createTransaction(data) {
   const params = await data;
   const product = await knex("products").where("id", params.product_id).first();
+  const merchant = await knex("merchants")
+    .where("id", product.merchant_id)
+    .first();
+
   const timestamps = new Date().toISOString();
 
   if (!product) {
@@ -70,7 +74,7 @@ async function createTransaction(data) {
       .insert({
         user_id: params.user_id,
         product_id: params.product_id,
-        status: params.status,
+        status: "payment_successfull",
         total: params.total,
         shipping_cost: params.shipping_cost,
         product_cost: params.product_cost,
@@ -85,6 +89,10 @@ async function createTransaction(data) {
     await knex("products")
       .where("id", params.product_id)
       .update({ stock: update_stock, updated_at: timestamps });
+
+    await knex("merchants")
+      .where("id", merchant.id)
+      .update({ revenue: merchant.revenue + params.net_amount });
 
     return transaction;
   } catch (error) {

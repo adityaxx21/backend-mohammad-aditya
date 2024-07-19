@@ -15,7 +15,7 @@ async function registerUserController(req, res) {
 
   const password = req.body.password;
 
-  await bcrypt.hash(password, 10, function (err, hash) {
+  await bcrypt.hash(password, 10, async function (err, hash) {
     if (err) {
       console.error("Error hashing password:", err);
       // Handle error accordingly
@@ -23,7 +23,7 @@ async function registerUserController(req, res) {
     }
     req.body.password = hash;
     try {
-      User.createUser(req.body);
+      await User.createUser(req.body);
       response = Response.successResponse(201, req.body);
     } catch (error) {
       response = Response.failedResponse(500, error.message);
@@ -45,14 +45,14 @@ async function loginUserController(req, res) {
   const user = await User.getUser(email);
 
   if (!user) {
-    response = Response.failedResponse(400, { message: "Invalid credentials" });
+    response = Response.failedResponse(400, "Invalid credentials");
     return res.status(response.statusCode).json(response);
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    response = Response.failedResponse(400, { message: "Invalid credentials" });
+    response = Response.failedResponse(400, "Invalid credentials");
     return res.status(response.statusCode).json(response);
   }
 
