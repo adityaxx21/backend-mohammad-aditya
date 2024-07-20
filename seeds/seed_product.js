@@ -6,7 +6,7 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("products").del();
   // Reset auto-increment sequence for PostgreSQL
-  await knex.raw(`ALTER SEQUENCE products_id_seq RESTART WITH 1`);
+  await knex.raw(`ALTER TABLE products AUTO_INCREMENT = 1`);
 
   await knex("products").insert([
     {

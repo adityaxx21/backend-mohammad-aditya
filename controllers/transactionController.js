@@ -22,7 +22,6 @@ async function getTransactionController(req, res) {
   const id = req.params.id;
   let response;
   let transaction;
-  console.log(req.user);
 
   if (req.user.role === "admin") {
     transaction = await Transaction.getAdminTransaction(id, req.user.id);
@@ -76,7 +75,6 @@ async function createTransactionController(req, res) {
 
   try {
     const transaction = await Transaction.createTransaction(req.body);
-    console.log(transaction);
 
     response = successResponse(201, transaction);
   } catch (error) {

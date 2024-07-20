@@ -7,16 +7,15 @@ async function createUser(data) {
   if (check_user) {
     throw new Error("Email already used");
   }
-  
-  const user = knex("users")
-    .insert({
-      fullname: fullname,
-      email: email,
-      address: address,
-      password: password,
-      role: role,
-    })
-    .returning("*");
+
+  const insertUser = await knex("users").insert({
+    fullname: fullname,
+    email: email,
+    address: address,
+    password: password,
+    role: role,
+  });
+  const user = await knex("users").where("id", insertUser[0]).first();
   return user;
 }
 

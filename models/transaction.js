@@ -1,11 +1,14 @@
 const { knex } = require("../config");
-const data = [
-  { sepatu: { price: 20000, total: 2 } },
-  { sendal: { price: 20000, total: 2 } },
-];
+const { format } = require("date-fns");
+
 async function getTransactions(data = null, userId) {
   const { limit = 10, page = 1 } = data;
-  const transactions = knex("transactions").where("user_id", userId).paginate({
+  const query = knex("transactions");
+
+  if (userId) {
+    query.where("user_id", userId);
+  }
+  const transactions = await query.paginate({
     perPage: limit,
     currentPage: page,
   });
@@ -28,7 +31,6 @@ async function getAdminTransactions(data = null, userId) {
 }
 
 async function getTransaction(id, userId) {
-  console.log(userId);
   const transactions = knex("transactions")
     .where("id", id)
     .where("user_id", userId)
@@ -54,7 +56,7 @@ async function createTransaction(data) {
     .where("id", product.merchant_id)
     .first();
 
-  const timestamps = new Date().toISOString();
+  const timestamps = format(new Date(), "yyyy-MM-dd HH:mm:ss");
 
   if (!product) {
     throw new Error("Product not found");
@@ -70,21 +72,22 @@ async function createTransaction(data) {
   // Start a transaction
   try {
     // Insert transaction record
-    const transaction = await knex("transactions")
-      .insert({
-        user_id: params.user_id,
-        product_id: params.product_id,
-        status: "payment_successfull",
-        total: params.total,
-        shipping_cost: params.shipping_cost,
-        product_cost: params.product_cost,
-        gross_amount: params.gross_amount,
-        net_amount: params.net_amount,
-        shipping_discount: params.shipping_discount,
-        product_discount: params.product_discount,
-      })
-      .returning("*");
+    const insertTransaction = await knex("transactions").insert({
+      user_id: params.user_id,
+      product_id: params.product_id,
+      status: "payment_successfull",
+      total: params.total,
+      shipping_cost: params.shipping_cost,
+      product_cost: params.product_cost,
+      gross_amount: params.gross_amount,
+      net_amount: params.net_amount,
+      shipping_discount: params.shipping_discount,
+      product_discount: params.product_discount,
+    });
 
+    const transaction = await knex("transactions")
+      .where("id", insertTransaction[0])
+      .first();
     // Update product stock
     await knex("products")
       .where("id", params.product_id)
@@ -92,7 +95,10 @@ async function createTransaction(data) {
 
     await knex("merchants")
       .where("id", merchant.id)
-      .update({ revenue: merchant.revenue + params.net_amount });
+      .update({
+        revenue: merchant.revenue + params.net_amount,
+        updated_at: timestamps,
+      });
 
     return transaction;
   } catch (error) {
@@ -104,36 +110,33 @@ async function createTransaction(data) {
 
 async function updateTransaction(id, data, userId) {
   const params = await data;
-  const timestamps = new Date().toISOString();
-  const transaction = knex("transactions")
-    .where("id", id)
-    .where("user_id", userId)
-    .update({
-      status: params.status,
-      updated_at: timestamps,
-    })
-    .returning("*");
+  const timestamps = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+  await knex("transactions").where("id", id).where("user_id", userId).update({
+    status: params.status,
+    updated_at: timestamps,
+  });
 
+  const transaction = await knex("transactions").where("id", id).first();
   return transaction;
 }
 
 async function updateAdminTransaction(id, data, userId) {
   const params = await data;
-  const timestamps = new Date().toISOString();
+  const timestamps = format(new Date(), "yyyy-MM-dd HH:mm:ss");
   const current_transaction = getAdminTransaction(id, userId);
 
   if (!current_transaction) {
     throw new Error("Transaction not found");
   }
 
-  const transaction = knex("transactions")
+  await knex("transactions")
     .where("id", id)
     .where("user_id", params.userId)
     .update({
       status: params.status,
       updated_at: timestamps,
-    })
-    .returning("*");
+    });
+  const transaction = await knex("transactions").where("id", id).first();
 
   return transaction;
 }
