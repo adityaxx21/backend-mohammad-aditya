@@ -2,11 +2,16 @@ const { knex } = require("../config");
 const { format } = require("date-fns");
 
 async function getMerchants(data = null) {
-  const { limit = 10, page = 1, name = null } = data;
+  const { limit = 10, page = 1, name = null, user_id = null } = data;
   const query = knex("merchants");
   if (name) {
     query.where("name", "like", `%${name}%`);
   }
+
+  if (user_id) {
+    query.where("user_id", user_id);
+  }
+  
   const merchants = await query.paginate({
     perPage: limit,
     currentPage: page,

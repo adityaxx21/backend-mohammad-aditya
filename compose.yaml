@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_NAME=ecommerce
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_HOST=db
+      - JWT_SECRET=HyH4YsXdJlYWTjuzmtiRLY7QEasHYxsz17CtzTTPOdEGLNZdTCqLAVdkTe0k6YhDUzVnCWlO4xvualPIH3U77FxoKDWxlrR8S91CoE1AzNI9NuGzQMI2wSojQ6rOWjp0
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ecommerce
+      - MYSQL_PASSWORD=root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql-data:

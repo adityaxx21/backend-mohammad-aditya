@@ -17,17 +17,24 @@ async function getTransactions(data = null, userId) {
 }
 
 async function getAdminTransactions(data = null, userId) {
-  const { limit = 10, page = 1 } = data;
-  return knex("transactions")
+  const { limit = 10, page = 1, merchant_id = null } = data;
+  const query = knex("transactions")
     .join("products", "transactions.product_id", "products.id")
     .join("merchants", "products.merchant_id", "merchants.id")
     .join("users", "merchants.user_id", "users.id")
     .select("transactions.*")
-    .where("users.id", userId)
-    .paginate({
-      perPage: limit,
-      currentPage: page,
-    });
+    .where("users.id", userId);
+
+  if (merchant_id) {
+    query.where("merchants.id", merchant_id);
+  }
+
+  const transactions = await query.paginate({
+    perPage: limit,
+    currentPage: page,
+  });
+
+  return transactions;
 }
 
 async function getTransaction(id, userId) {

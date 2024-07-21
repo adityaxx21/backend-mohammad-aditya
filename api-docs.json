@@ -227,7 +227,13 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "o A"
+									"value": "o A",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": 1,
+									"disabled": true
 								},
 								{
 									"key": "page",
@@ -376,6 +382,11 @@
 								"transactions"
 							],
 							"query": [
+								{
+									"key": "merchant_id",
+									"value": "1",
+									"disabled": true
+								},
 								{
 									"key": "limit",
 									"value": "2000",
