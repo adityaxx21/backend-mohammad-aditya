@@ -54,6 +54,12 @@ async function createTransactionController(req, res) {
   let response;
 
   const errors = validationResult(req);
+  
+  if (!errors.isEmpty()) {
+    response = failedResponse(422, errors.array());
+    return res.status(422).json(response);
+  }
+
   const { gross_amount, product_cost, shipping_cost } = req.body;
   const user_id = req.user.id;
   const shipping_discount = gross_amount > 15000 ? shipping_cost : 0;
