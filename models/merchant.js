@@ -27,7 +27,7 @@ async function getMerchant(id) {
 
 async function createMerchant(data) {
   const params = await data;
-  const insertMerchant = knex("merchants").insert({
+  const insertMerchant = await knex("merchants").insert({
     name: params.name,
     description: params.description,
     address: params.address,
