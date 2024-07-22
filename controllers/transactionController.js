@@ -64,7 +64,7 @@ async function createTransactionController(req, res) {
 
   const product = await Product.getProduct(req.body.product_id);
 
-  if (product || product.stock < req.body.total) {
+  if (!product || product.stock < req.body.total) {
     response = failedResponse(422, "Transaction invalid");
     return res.status(422).json(response);
   }
