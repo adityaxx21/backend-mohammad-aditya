@@ -5,9 +5,7 @@ const createProductValidationRule = () => {
   return [
     body("name")
       .notEmpty()
-      .withMessage("name is required")
-      .isAlphanumeric()
-      .withMessage("Invalid name"),
+      .withMessage("name is required"),
     body("price")
       .notEmpty()
       .withMessage("price is required")
@@ -20,9 +18,7 @@ const createProductValidationRule = () => {
       .withMessage("Invalid stock"),
     body("description")
       .notEmpty()
-      .withMessage("description is required")
-      .isAlphanumeric()
-      .withMessage("Invalid description"),
+      .withMessage("description is required"),
     body("brand_id").optional({ nullable: true }).isInt().withMessage("Invalid brand_id"),
     body("merchant_id")
     .notEmpty()
