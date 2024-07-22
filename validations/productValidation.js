@@ -30,11 +30,9 @@ const createProductValidationRule = () => {
 
 const updateProductValidationRule = () => {
   return [
-    body("name").isAlphanumeric().withMessage("Invalid name"),
     body("price").isInt({ min: 0 }).withMessage("Invalid price"),
     body("stock").isInt({ min: 0 }).withMessage("Invalid stock"),
     body("brand_id").optional({ nullable: true }).isInt().withMessage("Invalid brand_id"),
-    body("description").optional({ nullable: true }).isAlphanumeric().withMessage("Invalid description"),
   ];
 };
 
