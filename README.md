@@ -53,7 +53,7 @@ you can check on `api-docs.yaml`
 
 ### ProductModule:
 - A product can only be created by an admin but can be viewed by all roles.
-- A product can only be modified by the admin who owns the merchant.
+- A product can only be modified by the admin who owns the merchant. (feature not implemented yet, so for now all admin can update all product)
 - A product has stock that decreases when a transaction involving the product is completed.
 
 ### TransactionModule:
