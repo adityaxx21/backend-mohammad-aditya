@@ -15,7 +15,7 @@ async function getMerchantController(req, res) {
   if (merchant) {
     response = successResponse(200, merchant);
   } else {
-    response = failedResponse(500, "id tidak ada didalam database");
+    response = failedResponse(500, "id unavailable at database");
   }
 
   return res.status(response.statusCode).json(response);
@@ -55,7 +55,7 @@ async function updateMerchantController(req, res) {
       const update = await Merchant.updateMerchant(id, req.body);
       response = successResponse(200, update);
     } else {
-      response = failedResponse(500, "id tidak ada didalam database");
+      response = failedResponse(500, "id unavailable at database");
     }
   } catch (error) {
     response = failedResponse(500, error.message);
@@ -74,7 +74,7 @@ async function deleteMerchantController(req, res) {
       await Merchant.deleteMerchant(id);
       response = successResponse(204, null);
     } else {
-      response = failedResponse(500, "id tidak ada didalam database");
+      response = failedResponse(500, "id unavailable at database");
     }
   } catch (error) {
     response = failedResponse(500, error.message);

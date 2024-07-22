@@ -15,7 +15,7 @@ async function getProductController(req, res) {
   if (product) {
     response = successResponse(200, product);
   } else {
-    response = failedResponse(500, "id tidak ada didalam database");
+    response = failedResponse(500, "id unavailable at database");
   }
 
   return res.status(response.statusCode).json(response);
@@ -55,7 +55,7 @@ async function updateProductController(req, res) {
       const update = await Product.updateProduct(id, req.body);
       response = successResponse(200, update);
     } else {
-      response = failedResponse(500, "id tidak ada didalam database");
+      response = failedResponse(500, "id unavailable at database");
     }
   } catch (error) {
     response = failedResponse(500, error.message);
@@ -74,7 +74,7 @@ async function deleteProductController(req, res) {
       await Product.deleteProduct(id);
       response = successResponse(204, null);
     } else {
-      response = failedResponse(500, "id tidak ada didalam database");
+      response = failedResponse(500, "id unavailable at database");
     }
   } catch (error) {
     response = failedResponse(500, error.message);

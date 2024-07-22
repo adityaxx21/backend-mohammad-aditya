@@ -1,4 +1,6 @@
 const Transaction = require("../models/transaction");
+const Product = require("../models/product");
+
 const { successResponse, failedResponse } = require("../helpers/helper");
 const { validationResult } = require("express-validator");
 
@@ -31,7 +33,7 @@ async function getTransactionController(req, res) {
   if (transaction) {
     response = successResponse(200, transaction);
   } else {
-    response = failedResponse(500, "id tidak ada didalam database");
+    response = failedResponse(500, "id unavailable at database");
   }
 
   return res.status(response.statusCode).json(response);
@@ -54,9 +56,16 @@ async function createTransactionController(req, res) {
   let response;
 
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
     response = failedResponse(422, errors.array());
+    return res.status(422).json(response);
+  }
+
+  const product = await Product.getProduct(req.body.product_id);
+
+  if (product || product.stock < req.body.total) {
+    response = failedResponse(422, "Transaction invalid");
     return res.status(422).json(response);
   }
 
@@ -73,11 +82,6 @@ async function createTransactionController(req, res) {
     net_amount: net_amount,
     user_id: user_id,
   });
-
-  if (!errors.isEmpty()) {
-    response = failedResponse(422, errors.array());
-    return res.status(422).json(response);
-  }
 
   try {
     const transaction = await Transaction.createTransaction(req.body);

@@ -35,7 +35,7 @@ async function getBrandController(req, res) {
   if (brand) {
     response = successResponse(200, brand);
   } else {
-    response = failedResponse(500, "id tidak ada didalam database");
+    response = failedResponse(500, "id unavailable at database");
   }
 
   return res.status(response.statusCode).json(response);
